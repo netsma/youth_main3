@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}홈 | 청년 정책 가이드{% endblock %}
+
+{% block content %}
+<section class="text-center mb-16">
+    <h2 class="text-5xl font-bold text-gray-800 mb-6">청년을 위한 스마트 정책 가이드</h2>
+    <p class="text-xl text-gray-600">복잡하고 정보를 찾기 힘든 청년 정책, AI 챗봇이 쉽게 알려드려요</p>
+</section>
+
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+    <!-- 카드 1 -->
+    <div class="bg-white border border-gray-200 p-8 rounded-xl shadow-lg text-center">
+        <div class="flex justify-center mb-4">
+            <span class="material-icons text-4xl text-sky-500 bg-sky-100 p-3 rounded-full">chat_bubble_outline</span>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">청년정책 Q&amp;A</h3>
+        <p class="text-gray-600">궁금한 정책을 바로 물어보세요</p>
+    </div>
+    <!-- 카드 2 -->
+    <div class="bg-white border border-gray-200 p-8 rounded-xl shadow-lg text-center">
+        <div class="flex justify-center mb-4">
+            <span class="material-icons text-4xl text-red-500 bg-red-100 p-3 rounded-full">emoji_events</span>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">맞춤 정책 추천</h3>
+        <p class="text-gray-600">나에게 맞는 정책을 찾아드려요</p>
+    </div>
+    <!-- 카드 3 -->
+    <div class="bg-white border border-gray-200 p-8 rounded-xl shadow-lg text-center">
+        <div class="flex justify-center mb-4">
+            <span class="material-icons text-4xl text-green-500 bg-green-100 p-3 rounded-full">support_agent</span>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-800 mb-2">24시간 상담</h3>
+        <p class="text-gray-600">언제든지 정책 상담 가능</p>
+    </div>
+</section>
+
+<section class="mb-12">
+    <div class="flex items-center mb-8">
+        <h2 class="text-3xl font-bold text-gray-800">인기 청년 정책</h2>
+    </div>
+    <div class="relative">
+        <div class="overflow-hidden">
+            <div class="flex transition-transform duration-500 ease-in-out" id="policySlider">
+                {% for policy in popular_policies %}
+                <div class="w-full md:w-1/2 lg:w-1/4 flex-shrink-0 px-4">
+                    <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow h-full cursor-pointer" 
+                        onclick="openPolicyModal('{{ policy.plcy_no }}')">
+                        <div class="flex flex-col h-full">
+                            <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ policy.plcy_nm }}</h3>
+                            <p class="text-gray-600 text-sm mb-3">{{ policy.plcy_expln_cn|truncatechars:100 }}</p>
+                            <div class="flex items-center gap-2">
+                                <span class="{{ policy.category_color.bg }} {{ policy.category_color.text }} text-xs font-medium px-3 py-1 rounded-full w-fit">{{ policy.mclsf_nm }}</span>
+                                <span class="bg-gray-200 text-gray-700 text-xs font-medium px-3 py-1 rounded-full w-fit">{{ policy.zip_cd }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <button class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100" onclick="slidePrev()">
+            <span class="material-icons">chevron_left</span>
+        </button>
+        <button class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:bg-gray-100" onclick="slideNext()">
+            <span class="material-icons">chevron_right</span>
+        </button>
+    </div>
+</section>
+
+{% block extra_js %}
+<script src="{% static 'js/home.js' %}"></script>
+<script src="{% static 'js/policy_modal.js' %}"></script>
+{% endblock %}
+{% endblock %}
