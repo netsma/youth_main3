@@ -14,6 +14,8 @@ phases:
       # Docker push를 할 ECR에 로그인 필요
       # https://awscli.amazonaws.com/v2/documentation/api/latest/reference/ecr/get-login-password.html
       # https://stackoverflow.com/questions/77488134/codebuild-error-exit-status-127-file-name-too-long
+      - echo Logging in to Docker Hub...
+      - echo "Jnhs509!!" | docker login -u "Andrewskn" --password-stdin
       - echo Logging in to Amazon ECR...
       - aws --version
       - ECR_PASSWORD=$(aws ecr get-login-password --region $AWS_DEFAULT_REGION)
