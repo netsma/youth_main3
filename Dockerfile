@@ -13,11 +13,11 @@ WORKDIR /app
 
 # requirements.txt, .env 복사
 #COPY ./requirements.txt /app/
-COPY ./.env /app/
+#COPY ./.env /app/
 
 # 프로젝트 코드 복사
-COPY ./Web /app/Web
-
+#COPY ./Web /app/Web
+COPY . /app
 
 # 필요한 라이브러리 설치
 RUN pip install --upgrade pip && pip install -r ./Web/requirements.txt
