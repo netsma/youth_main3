@@ -15,7 +15,13 @@ import os
 
 from dotenv import load_dotenv
 
-load_dotenv()
+# .env 파일이 있으면 우선 사용, 없으면 AWS SSM Parameter Store에서 로드
+dotenv_path = Path(__file__).resolve().parent.parent.parent / ".env"
+if dotenv_path.exists():
+    load_dotenv(dotenv_path)
+else:
+    from config.aws_param_store import load_parameters_from_aws
+    load_parameters_from_aws(prefix="/youth_main3/")  # prefix는 실제 저장 경로에 맞게 수정
 
 NAVER_CLIENT_ID = os.getenv("NAVER_CLIENT_ID")
 NAVER_CLIENT_SECRET = os.getenv("NAVER_CLIENT_SECRET")
