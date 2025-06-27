@@ -25,5 +25,8 @@ RUN pip install --upgrade pip && pip install -r ./Web/requirements.txt
 # 포트 오픈 (Django 기본 8000)
 EXPOSE 8000
 
+# ALLOWED_HOSTS 설정
+ENV DJANGO_ALLOWED_HOSTS="*"
+
 # 마이그레이션 및 서버 실행
 CMD ["sh", "-c", "cd Web && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
